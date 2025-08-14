@@ -6,8 +6,8 @@ pipeline{
 	stages {
 		stage('test') {
 			steps {
-				echo '$SSH_USR'
-				echo '$SSH_PWD'
+				echo "$SSH_USR"
+				echo "$SSH_PWD"
 			}
 		}
 	}
