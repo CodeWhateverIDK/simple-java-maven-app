@@ -26,7 +26,7 @@ pipeline {
 		stage('Deploy') {
 			steps {
 				sshPublisher(publishers: [sshPublisherDesc(configName: "$IP", transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: """cd $DIR
-sh bin/launch.sh""", execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: "$DIR", remoteDirectorySDF: false, removePrefix: 'monitor-parent/monitor-boot/target', sourceFiles: 'monitor-parent/monitor-boot/target/monitor-boot.jar')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
+sh bin/launch.sh restart""", execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: "$DIR", remoteDirectorySDF: false, removePrefix: 'monitor-parent/monitor-boot/target', sourceFiles: 'monitor-parent/monitor-boot/target/monitor-boot.jar')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
 			}
 		}
 	}
@@ -36,7 +36,7 @@ sh bin/launch.sh""", execTimeout: 120000, flatten: false, makeEmptyDirs: false, 
       archiveArtifacts artifacts: 'monitor-parent/monitor-boot/target/*.jar', fingerprint: true
     }
 		always {
-			build wait: false, job: 'fetch-log'
+			build wait: false, job: 'fetch-log', parameters: [string(name: 'DIR', value: "$DIR"), string(name: 'IP', value: "$IP"), string(name: 'PORT', value: "$PORT")]
 		}
 	}
 }
