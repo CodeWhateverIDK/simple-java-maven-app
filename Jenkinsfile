@@ -25,7 +25,7 @@ pipeline {
 		}
 		stage('Deploy') {
 			steps {
-				sshPublisher(publishers: [sshPublisherDesc(configName: '$IP', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '''cd $DIR
+				sshPublisher(publishers: [sshPublisherDesc(configName: '47.102.98.195', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '''cd $DIR
 sh bin/launch.sh''', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '$DIR', remoteDirectorySDF: false, removePrefix: 'monitor-parent/monitor-boot/target', sourceFiles: 'monitor-parent/monitor-boot/target/monitor-boot.jar')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
 			}
 		}
