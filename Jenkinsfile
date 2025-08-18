@@ -36,7 +36,7 @@ sh bin/launch.sh restart""", execTimeout: 120000, flatten: false, makeEmptyDirs:
       archiveArtifacts artifacts: 'monitor-parent/monitor-boot/target/*.jar', fingerprint: true
     }
 		always {
-			build wait: false, job: 'fetch-log', parameters: [string(name: 'DIR', value: "$DIR"), string(name: 'IP', value: "$IP"), string(name: 'PORT', value: "$PORT")]
+			build wait: false, job: 'fetch-log', parameters: [string(name: 'DIR', value: "$DIR"), string(name: 'IP', value: "$IP"), string(name: 'PORT', value: "$PORT"), string(name: 'HOST', value: "$HOST")]
 		}
 	}
 }
