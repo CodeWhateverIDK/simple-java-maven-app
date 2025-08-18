@@ -1,14 +1,25 @@
-pipeline{
+pipeline {
 	agent any
-	environment {
-		SSH = credentials('ssh')
-	}
+	tools {
+  	maven 'Maven3.9.11'
+		jdk 'JDK8' 
+  }
 	stages {
-		stage('test') {
+		stage('Checkout') {
 			steps {
-				sh('echo $SSH_USR')
-				sh('echo $SSH_PSW')
+				git branch: '1.6', credentialsId: 'lxl', url: 'https://gitee.com/szyh/ic-monitor.git'
 			}
 		}
+		stage('Build') {
+			steps {
+				sh "mvn clean package -Dmaven.test.skip=true"
+			}
+		}
+	}
+
+	post {
+		success {
+      archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
+    }
 	}
 }
